@@ -1,8 +1,11 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitness_app/features/home/view/home_screen.dart';
+import 'package:fitness_app/features/coaches/view/coaches_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'core/services/firebase_remote_config_service.dart';
+import 'data/repositories/coach_repository.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -15,7 +18,12 @@ Future<void> main() async {
   final remoteConfigService = FirebaseRemoteConfigService();
   await remoteConfigService.init();
 
-  runApp(MyApp(remoteConfigService: remoteConfigService));
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (_) => MyApp(remoteConfigService: remoteConfigService),
+    ),
+  );
 }
 
 
@@ -30,7 +38,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(
+      builder: DevicePreview.appBuilder,
+      locale: DevicePreview.locale(context),
+      home: CoachesScreen(
+        coachRepository: CoachRepository(
+          remoteConfigService: remoteConfigService,
+        ),
       ),
     );
   }
