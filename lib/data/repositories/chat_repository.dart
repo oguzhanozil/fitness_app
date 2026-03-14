@@ -92,6 +92,41 @@ class ChatRepository {
 		await _localStorageService.deleteConversation(conversationId);
 	}
 
+	Future<void> saveConversationSnapshot({
+		required String conversationId,
+		required CoachPersona coach,
+		required List<ChatMessage> messages,
+	}) async {
+		if (messages.isEmpty) {
+			return;
+		}
+
+		final hasUserMessage = messages.any((message) => message.role == MessageRole.user);
+		if (!hasUserMessage) {
+			return;
+		}
+
+		final orderedMessages = List<ChatMessage>.from(messages)
+			..sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+		final visibleMessages = orderedMessages
+				.where((message) => !message.id.startsWith('intro_'))
+				.toList(growable: false);
+		final lastMessage =
+				visibleMessages.isNotEmpty ? visibleMessages.last : orderedMessages.last;
+
+		await _localStorageService.saveConversationSummary(
+			ConversationSummary(
+				id: conversationId,
+				coachId: coach.id,
+				coachName: coach.name,
+				lastMessage: lastMessage.content,
+				lastMessageAt: lastMessage.timestamp,
+				messageCount: visibleMessages.length,
+			),
+		);
+	}
+
 	void endChat() {
 		_aiChatService.endSession();
 	}
