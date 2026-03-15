@@ -44,4 +44,3 @@ These screenshots reflect the current running app:
 ## Notes
 
 - Coach avatars are loaded from `assets/avatars/`.
-- Recommended avatar format is square PNG/WebP (128x128 works well for current UI scale).
