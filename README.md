@@ -7,7 +7,8 @@ A Flutter-based AI coach application with multiple personas (Dietitian, Fitness,
 The app is structured by feature and follows a lightweight clean architecture split:
 
 - `lib/core`: Cross-cutting concerns (constants, app theme, shared services).
-- `lib/data`: External integrations and persistence (`firebase_ai`, `remote_config`, local storage).
+- `lib/repositories`: Data-access orchestration for app features.
+- `lib/services`: External integrations and persistence (`firebase_ai`, `remote_config`, local storage).
 - `lib/domain`: Business models used across layers (`CoachPersona`, conversation models).
 - `lib/features`: UI + state management per feature (`coaches`, `chat`, `history`, `home`).
 
@@ -24,7 +25,8 @@ Key decisions:
 ```text
 lib/
 	core/
-	data/
+	repositories/
+	services/
 	domain/
 	features/
 		coaches/

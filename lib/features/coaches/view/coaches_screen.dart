@@ -54,14 +54,20 @@ class CoachesScreen extends StatelessWidget {
 									return const Center(child: Text('Coaches not found'));
 								}
 
-								CoachPersona coachById(String id) {
-									return state.coaches.firstWhere((coach) => coach.id == id);
+								Color? accentForCoach(String coachId) {
+									switch (coachId) {
+										case 'dietitian':
+											return ThemeColors.coachDietitianAccent;
+										case 'fitness':
+											return ThemeColors.coachFitnessAccent;
+										case 'pilates':
+											return ThemeColors.coachPilatesAccent;
+										case 'yoga':
+											return ThemeColors.coachYogaAccent;
+										default:
+											return null;
+									}
 								}
-
-								final dietitian = coachById('dietitian');
-								final fitness = coachById('fitness');
-								final pilates = coachById('pilates');
-								final yoga = coachById('yoga');
 
 								return GridView.count(
 									padding: const EdgeInsets.fromLTRB(16, 20, 16, 32),
@@ -69,40 +75,18 @@ class CoachesScreen extends StatelessWidget {
 									crossAxisSpacing: 12,
 									mainAxisSpacing: 12,
 									childAspectRatio: 0.75,
-									children: [
-										CoachCard(
-											coachName: dietitian.name,
-											coachBranch: dietitian.title,
-											description: dietitian.description,
-											avatarAsset: dietitian.avatarAsset,
-											color: ThemeColors.coachDietitianAccent,
-											onTap: () => onCoachTap?.call(dietitian),
-										),
-										CoachCard(
-											coachName: fitness.name,
-											coachBranch: fitness.title,
-											description: fitness.description,
-											avatarAsset: fitness.avatarAsset,
-											color: ThemeColors.coachFitnessAccent,
-											onTap: () => onCoachTap?.call(fitness),
-										),
-										CoachCard(
-											coachName: pilates.name,
-											coachBranch: pilates.title,
-											description: pilates.description,
-											avatarAsset: pilates.avatarAsset,
-											color: ThemeColors.coachPilatesAccent,
-											onTap: () => onCoachTap?.call(pilates),
-										),
-										CoachCard(
-											coachName: yoga.name,
-											coachBranch: yoga.title,
-											description: yoga.description,
-											avatarAsset: yoga.avatarAsset,
-											color: ThemeColors.coachYogaAccent,
-											onTap: () => onCoachTap?.call(yoga),
-										),
-									],
+									children: state.coaches
+											.map(
+												(coach) => CoachCard(
+													coachName: coach.name,
+													coachBranch: coach.title,
+													description: coach.description,
+													avatarAsset: coach.avatarAsset,
+													color: accentForCoach(coach.id),
+													onTap: () => onCoachTap?.call(coach),
+												),
+											)
+											.toList(growable: false),
 								);
 						}
 					},
