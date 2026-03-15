@@ -83,18 +83,40 @@ class HomeScreen extends StatelessWidget {
           return Scaffold(
             body: IndexedStack(index: state.currentIndex, children: pages),
             bottomNavigationBar: NavigationBar(
-              backgroundColor: ThemeColors.coachesBackground,
+              backgroundColor: ThemeColors.coachesAppBarBackground,
+              indicatorColor: ThemeColors.coachesNavIndicator,
+              labelTextStyle: WidgetStateProperty.resolveWith((states) {
+                final isSelected = states.contains(WidgetState.selected);
+                return TextStyle(
+                  color: isSelected
+                      ? ThemeColors.coachesNavSelected
+                      : ThemeColors.coachesNavUnselected,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                );
+              }),
               selectedIndex: state.currentIndex,
               onDestinationSelected: context.read<HomeCubit>().selectTab,
               destinations: const [
                 NavigationDestination(
-                  icon: Icon(Icons.groups_outlined),
-                  selectedIcon: Icon(Icons.groups),
+                  icon: Icon(
+                    Icons.groups_outlined,
+                    color: ThemeColors.coachesNavUnselected,
+                  ),
+                  selectedIcon: Icon(
+                    Icons.groups,
+                    color: ThemeColors.coachesNavSelected,
+                  ),
                   label: 'Coaches',
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.history_outlined),
-                  selectedIcon: Icon(Icons.history),
+                  icon: Icon(
+                    Icons.history_outlined,
+                    color: ThemeColors.coachesNavUnselected,
+                  ),
+                  selectedIcon: Icon(
+                    Icons.history,
+                    color: ThemeColors.coachesNavSelected,
+                  ),
                   label: 'History',
                 ),
               ],

@@ -1,47 +1,54 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../../../core/themes/theme_colors.dart';
-import '../../../../domain/models/coach_persona.dart';
 
-Color _accentColor(String id) {
-  return ThemeColors.coachAccentPalette[id.hashCode.abs() % ThemeColors.coachAccentPalette.length];
+Color _accentColor(String seed) {
+  return ThemeColors.coachAccentPalette[
+    seed.hashCode.abs() % ThemeColors.coachAccentPalette.length
+  ];
 }
 
-class _WoodGrainPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = ThemeColors.woodGrain.withValues(alpha: 0.14)
-      ..strokeWidth = 0.7
-      ..style = PaintingStyle.stroke;
-
-    const lineCount = 20;
-    for (int i = 0; i < lineCount; i++) {
-      final y0 = size.height * (i / (lineCount - 1).toDouble());
-      final path = Path();
-      path.moveTo(0, y0);
-      for (double x = 0; x <= size.width; x += 3) {
-        final y = y0 + 1.8 * math.sin((x / size.width) * math.pi * 4 + i * 0.65);
-        path.lineTo(x, y);
-      }
-      canvas.drawPath(path, paint);
-    }
+IconData _coachIcon(String branch) {
+  final normalized = branch.toLowerCase();
+  if (normalized.contains('diet')) {
+      return Icons.restaurant_menu_rounded;
   }
-
-  @override
-  bool shouldRepaint(_WoodGrainPainter _) => false;
+  if (normalized.contains('fitness')) {
+      return Icons.fitness_center_rounded;
+  }
+  if (normalized.contains('pilates')) {
+      return Icons.self_improvement_rounded;
+  }
+  if (normalized.contains('yoga')) {
+      return Icons.spa_rounded;
+  }
+  return Icons.person_rounded;
 }
 
 class CoachCard extends StatelessWidget {
-  const CoachCard({required this.coach, required this.onTap, super.key});
+  const CoachCard({
+    required this.coachName,
+    required this.coachBranch,
+    this.description,
+    this.avatarAsset,
+    this.onTap,
+    this.color,
+    super.key,
+  });
 
-  final CoachPersona coach;
-  final VoidCallback onTap;
+  final String coachName;
+  final String coachBranch;
+  final String? description;
+  final String? avatarAsset;
+  final VoidCallback? onTap;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    final accent = _accentColor(coach.id);
+    final accent = color ?? _accentColor('$coachName|$coachBranch');
+    final dpr = MediaQuery.of(context).devicePixelRatio;
+    const avatarSize = 44.0;
+    final cacheSize = (avatarSize * dpr).round().clamp(64, 128);
 
     return Container(
       decoration: BoxDecoration(
@@ -81,11 +88,6 @@ class CoachCard extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  // Wood grain overlay
-                  Positioned.fill(
-                    child: CustomPaint(painter: _WoodGrainPainter()),
-                  ),
-                  // Card content
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -94,18 +96,34 @@ class CoachCard extends StatelessWidget {
                         CircleAvatar(
                           radius: 26,
                           backgroundColor: accent.withValues(alpha: 0.22),
-                          child: Text(
-                            coach.name.isNotEmpty ? coach.name[0].toUpperCase() : '?',
-                            style: TextStyle(
-                              color: accent,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22,
-                            ),
+                          child: ClipOval(
+                            child: avatarAsset == null
+                                ? Icon(
+                                    _coachIcon(coachBranch),
+                                    color: accent,
+                                    size: 28,
+                                  )
+                                : Image.asset(
+                                    avatarAsset!,
+                                    width: avatarSize,
+                                    height: avatarSize,
+                                    fit: BoxFit.cover,
+                                    isAntiAlias: true,
+                                    filterQuality: FilterQuality.high,
+                                    cacheWidth: cacheSize,
+                                    cacheHeight: cacheSize,
+                                    gaplessPlayback: true,
+                                    errorBuilder: (_, _, _) => Icon(
+                                      _coachIcon(coachBranch),
+                                      color: accent,
+                                      size: 28,
+                                    ),
+                                  ),
                           ),
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          coach.name,
+                          coachName,
                           style: const TextStyle(
                             color: ThemeColors.woodTextPrimary,
                             fontWeight: FontWeight.w700,
@@ -118,13 +136,17 @@ class CoachCard extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                           decoration: BoxDecoration(
-                            color: accent.withValues(alpha: 0.22),
+                            color: accent.withValues(alpha: 0.88),
+                            border: Border.all(
+                              color: accent,
+                              width: 1.1,
+                            ),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
-                            coach.title,
+                            coachBranch,
                             style: TextStyle(
-                              color: accent,
+                              color: Colors.white,
                               fontWeight: FontWeight.w600,
                               fontSize: 11,
                             ),
@@ -134,7 +156,7 @@ class CoachCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          coach.description,
+                          description ?? '',
                           style: const TextStyle(
                             color: ThemeColors.woodTextSecondary,
                             fontSize: 12,
