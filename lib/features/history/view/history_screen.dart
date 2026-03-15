@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/themes/theme_colors.dart';
-import '../../../data/repositories/chat_repository.dart';
+import '../../../repositories/chat_repository.dart';
 import '../../../domain/models/conversation_summary.dart';
 import '../cubit/history_cubit.dart';
 import 'widgets/history_content.dart';
@@ -33,3 +33,4 @@ class HistoryScreen extends StatelessWidget {
 		);
 	}
 }
+

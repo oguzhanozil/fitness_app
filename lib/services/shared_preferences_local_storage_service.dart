@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../core/services/local_storage_service.dart';
-import '../../domain/models/chat_message.dart';
-import '../../domain/models/conversation_summary.dart';
+import '../core/services/local_storage_service.dart';
+import '../domain/models/chat_message.dart';
+import '../domain/models/conversation_summary.dart';
 
 class SharedPreferencesLocalStorageService implements LocalStorageService {
   static const String _conversationKey = 'conversation_summaries';

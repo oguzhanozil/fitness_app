@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/repositories/chat_repository.dart';
+import '../../../repositories/chat_repository.dart';
 import '../../../domain/models/chat_message.dart';
 import '../../../domain/models/coach_persona.dart';
 import 'chat_state.dart';
@@ -187,3 +187,4 @@ class ChatCubit extends Cubit<ChatState> {
 		return '${coachId}_${DateTime.now().millisecondsSinceEpoch}';
 	}
 }
+

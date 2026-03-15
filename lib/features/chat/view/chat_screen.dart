@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/repositories/chat_repository.dart';
+import '../../../repositories/chat_repository.dart';
 import '../../../domain/models/coach_persona.dart';
 import '../cubit/chat_cubit.dart';
 import 'widgets/chat_view.dart';
@@ -38,3 +38,4 @@ class ChatScreen extends StatelessWidget {
 		);
 	}
 }
+

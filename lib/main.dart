@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'core/services/firebase_remote_config_service.dart';
-import 'data/repositories/chat_repository.dart';
-import 'data/repositories/coach_repository.dart';
-import 'data/services/firebase_ai_chat_service.dart';
-import 'data/services/shared_preferences_local_storage_service.dart';
+import 'repositories/chat_repository.dart';
+import 'repositories/coach_repository.dart';
+import 'services/firebase_ai_chat_service.dart';
+import 'services/shared_preferences_local_storage_service.dart';
 import 'firebase_options.dart';
 import 'features/home/view/home_screen.dart';
 

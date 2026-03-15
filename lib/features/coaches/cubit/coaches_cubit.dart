@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/repositories/coach_repository.dart';
+import '../../../repositories/coach_repository.dart';
 import 'coaches_state.dart';
 
 class CoachesCubit extends Cubit<CoachesState> {
@@ -31,3 +31,4 @@ class CoachesCubit extends Cubit<CoachesState> {
 		}
 	}
 }
+

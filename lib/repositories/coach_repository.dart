@@ -1,6 +1,6 @@
-import '../../core/constants/app_constants.dart';
-import '../../core/services/remote_config_service.dart';
-import '../../domain/models/coach_persona.dart';
+import '../core/constants/app_constants.dart';
+import '../core/services/remote_config_service.dart';
+import '../domain/models/coach_persona.dart';
 
 class CoachRepository {
 	CoachRepository({required RemoteConfigService remoteConfigService})

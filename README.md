@@ -33,6 +33,22 @@ lib/
 		home/
 ```
 
+## Run
+
+From the project root:
+
+```bash
+flutter clean
+flutter pub get
+flutter run
+```
+
+Run on web (Chrome):
+
+```bash
+flutter run -d chrome
+```
+
 ## Screenshots
 
 These screenshots reflect the current running app:

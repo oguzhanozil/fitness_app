@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/repositories/chat_repository.dart';
+import '../../../repositories/chat_repository.dart';
 import 'history_state.dart';
 
 class HistoryCubit extends Cubit<HistoryState> {
@@ -56,3 +56,4 @@ class HistoryCubit extends Cubit<HistoryState> {
 		}
 	}
 }
+

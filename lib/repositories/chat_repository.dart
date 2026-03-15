@@ -1,8 +1,8 @@
-import '../../core/services/ai_chat_service.dart';
-import '../../core/services/local_storage_service.dart';
-import '../../domain/models/chat_message.dart';
-import '../../domain/models/coach_persona.dart';
-import '../../domain/models/conversation_summary.dart';
+import '../core/services/ai_chat_service.dart';
+import '../core/services/local_storage_service.dart';
+import '../domain/models/chat_message.dart';
+import '../domain/models/coach_persona.dart';
+import '../domain/models/conversation_summary.dart';
 
 class ChatRepository {
 	ChatRepository({

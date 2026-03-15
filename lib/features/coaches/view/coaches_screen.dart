@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/themes/theme_colors.dart';
-import '../../../data/repositories/coach_repository.dart';
+import '../../../repositories/coach_repository.dart';
 import '../../../domain/models/coach_persona.dart';
 import '../cubit/coaches_cubit.dart';
 import '../cubit/coaches_state.dart';
@@ -111,3 +111,4 @@ class CoachesScreen extends StatelessWidget {
 		);
 	}
 }
+

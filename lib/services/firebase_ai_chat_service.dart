@@ -1,7 +1,7 @@
 import 'package:firebase_ai/firebase_ai.dart';
 
-import '../../core/services/ai_chat_service.dart';
-import '../../domain/models/chat_message.dart';
+import '../core/services/ai_chat_service.dart';
+import '../domain/models/chat_message.dart';
 
 class FirebaseAiChatService implements AiChatService {
   FirebaseAiChatService({

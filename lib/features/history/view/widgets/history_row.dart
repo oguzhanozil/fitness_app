@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/themes/theme_colors.dart';
 import '../../../../domain/models/conversation_summary.dart';
+import 'history_delete_button.dart';
 
 class HistoryRow extends StatelessWidget {
   const HistoryRow({
@@ -82,15 +83,7 @@ class HistoryRow extends StatelessWidget {
                   ],
                 ),
               ),
-              IconButton(
-                onPressed: onDelete,
-                tooltip: 'Delete conversation',
-                icon: const Icon(
-                  Icons.delete_outline,
-                  size: 20,
-                  color: ThemeColors.woodTextSecondary,
-                ),
-              ),
+              HistoryDeleteButton(onPressed: onDelete),
             ],
           ),
         ),
